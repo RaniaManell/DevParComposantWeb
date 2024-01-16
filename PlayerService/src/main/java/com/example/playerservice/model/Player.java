@@ -1,7 +1,9 @@
 package com.example.playerservice.model;
 
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class Player {
 
     @ApiModelProperty(notes = "id of the Student",name="id",required=true,value="test id")
@@ -13,7 +15,7 @@ public class Player {
     }
 
     public Player(int id, String name) {
-        id = id;
+        this.id = id;
         this.name = name;
     }
 

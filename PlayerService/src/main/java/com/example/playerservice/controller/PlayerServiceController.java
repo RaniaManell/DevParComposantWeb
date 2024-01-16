@@ -1,6 +1,7 @@
 package com.example.playerservice.controller;
 
 import com.example.playerservice.model.Player;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -42,18 +43,13 @@ public class PlayerServiceController {
     public List<Player> getPlayers() {
         return players;
     }
-/*
+
     @ApiOperation(value = "Get specific Student in the System ", response = Player.class, tags = "getStudentId")
     @RequestMapping(value = "/GET/players/{id}")
     public Player getStudentId(@PathVariable(value = "id") int id) {
-        return players.stream().filter(x -> x.getName().equalsIgnoreCase(String.valueOf(id))).collect(Collectors.toList()).get(0);
-    }*/
-
-    @ApiOperation(value = "Get specific Student in the System ", response = Player.class, tags = "getStudent")
-    @RequestMapping(value = "/GET/players/{name}")
-    public Player getStudent(@PathVariable(value = "name") String name) {
-        return players.stream().filter(x -> x.getName().equalsIgnoreCase(name)).collect(Collectors.toList()).get(0);
+        return players.stream().filter(x -> x.getId()==id).collect(Collectors.toList()).get(0);
     }
+
 
     @ApiOperation(value = "Create a new Player in the System ", response = Player.class, tags = "createPlayer")
     @PostMapping(value = "/POST/players")
@@ -71,9 +67,7 @@ public class PlayerServiceController {
         return new ResponseEntity<>(newPlayer, HttpStatus.CREATED);
     }
 
-
-
-
+    @HystrixCommand(fallbackMethod = "createPlayerFallback")
     @ApiOperation(value = "Update details of a Player by ID", response = Player.class, tags = "updatePlayer")
     @PutMapping("/PUT/players/{id}")
     public ResponseEntity<Player> updatePlayer(@PathVariable int id, @RequestBody Player updatedPlayer) {
@@ -91,6 +85,14 @@ public class PlayerServiceController {
             // Si le joueur n'est pas trouvé, retournez le statut HTTP 404 (NOT_FOUND)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    // Méthode de secours pour la création de joueur
+    public ResponseEntity<Player> createPlayerFallback(Player newPlayer) {
+        // Implémentation de secours (par exemple, renvoyer un joueur par défaut)
+        Player defaultPlayer = new Player();
+        defaultPlayer.setId(-1); // ID par défaut pour indiquer un échec
+        return new ResponseEntity<>(defaultPlayer, HttpStatus.INTERNAL_SERVER_ERROR);
     }
     @ApiOperation(value = "Delete a Player by ID", response = Player.class, tags = "deletePlayer")
     @DeleteMapping("/DELETE/players/{id}")
@@ -118,4 +120,7 @@ public class PlayerServiceController {
     private int generateUniqueId() {
         return players.size() + 1;
     }
+
+
+
 }
