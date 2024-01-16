@@ -44,9 +44,9 @@ public class PlayerServiceController {
         return players;
     }
 
-    @ApiOperation(value = "Get specific Student in the System ", response = Player.class, tags = "getStudentId")
+    @ApiOperation(value = "Get specific Student in the System ", response = Player.class, tags = "getPlayerId")
     @RequestMapping(value = "/GET/players/{id}")
-    public Player getStudentId(@PathVariable(value = "id") int id) {
+    public Player getPlayerId(@PathVariable(value = "id") int id) {
         return players.stream().filter(x -> x.getId()==id).collect(Collectors.toList()).get(0);
     }
 

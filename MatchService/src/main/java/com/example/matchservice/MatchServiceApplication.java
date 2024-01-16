@@ -10,6 +10,8 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 @EnableEurekaClient
 @EnableDiscoveryClient
 @EnableHystrix
+//@EnableHystrixDashboar
+//j'ai mit le @EnableHystrixDashboar en commentaire car ça plante le projet à cause de version de java/springboot
 
 public class MatchServiceApplication {
 

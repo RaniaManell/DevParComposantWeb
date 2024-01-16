@@ -54,9 +54,9 @@ public class TeamServiceController {
             return Teams;
         }
 
-        @ApiOperation(value = "Get specific Student in the System ", response = Team.class, tags = "getStudentId")
+        @ApiOperation(value = "Get specific Student in the System ", response = Team.class, tags = "getTeamId")
         @RequestMapping(value = "/GET/teams/{id}")
-        public Team getStudentId(@PathVariable(value = "id") int id) {
+        public Team getTeamtId(@PathVariable(value = "id") int id) {
             return Teams.stream().filter(x -> x.getId()==id).collect(Collectors.toList()).get(0);
         }
 
@@ -86,19 +86,18 @@ public class TeamServiceController {
             Team existingTeam = findTeamById(id);
 
             if (existingTeam != null) {
-                // Mettez à jour les informations du joueur existant avec celles fournies dans la requête
+
                 existingTeam.setName(updatedTeam.getName());
-                // Vous pouvez ajouter d'autres propriétés à mettre à jour si nécessaire
 
                 // Retournez le joueur mis à jour avec le statut HTTP 200 (OK)
                 return new ResponseEntity<>(existingTeam, HttpStatus.OK);
             } else {
-                // Si le joueur n'est pas trouvé, retournez le statut HTTP 404 (NOT_FOUND)
+                // Si la team n'est pas trouvé, retournez le statut HTTP 404 (NOT_FOUND)
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
         }
 
-        // Méthode de secours pour la création de joueur
+        // Méthode de secours pour la création de la team
         public ResponseEntity<Team> createTeamFallback(Team newTeam) {
             // Implémentation de secours (par exemple, renvoyer un joueur par défaut)
             Team defaultTeam = new Team();

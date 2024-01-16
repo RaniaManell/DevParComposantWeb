@@ -7,6 +7,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
     @Configuration
+    //J'ai mit l'annotation en commentaire car ça plante le TP
    // @EnableSwagger2
     public class SwaggerConfig {
 /*

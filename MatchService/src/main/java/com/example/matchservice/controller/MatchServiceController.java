@@ -2,6 +2,7 @@ package com.example.matchservice.controller;
 
 import com.example.matchservice.model.Match;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -13,7 +14,8 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Api(value = "SwaggerMatchController", description = "REST Api related to Match Entity!")
+@RestController
 public class MatchServiceController {
 
     private final RestTemplate restTemplate = new RestTemplate();
@@ -34,14 +36,14 @@ public class MatchServiceController {
             @ApiResponse(code = 403, message = "forbidden!!!"),
             @ApiResponse(code = 404, message = "not found!!!") })
 
-    @RequestMapping(value = "/getMatchs")
+    @RequestMapping(value = "/getMatches")
     public List<Match> getMatchs() {
         return matchs;
     }
 
-    @ApiOperation(value = "Get specific Student in the System ", response = Match.class, tags = "getStudentId")
+    @ApiOperation(value = "Get specific Student in the System ", response = Match.class, tags = "getMatchId")
     @RequestMapping(value = "/GET/matches/{id}")
-    public Match getStudentId(@PathVariable(value = "id") int id) {
+    public Match getMatchtId(@PathVariable(value = "id") int id) {
         return matchs.stream().filter(x -> x.getId()==id).collect(Collectors.toList()).get(0);
     }
 

@@ -8,6 +8,8 @@ import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 @SpringBootApplication
 @EnableEurekaClient
 @EnableHystrix
+//@EnableHystrixDashboar
+//j'ai mit le @EnableHystrixDashboar en commentaire car ça plante le projet à cause de version de java/springboot
 
 public class StatsServiceApplication {
 

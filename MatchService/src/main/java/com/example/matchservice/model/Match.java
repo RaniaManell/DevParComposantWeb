@@ -1,13 +1,21 @@
 package com.example.matchservice.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 
 public class Match {
+    @ApiModelProperty(notes = "id of the match",name="id",required=true,value="test id")
     private int matchId;
+    @ApiModelProperty(notes = "id of the team 1",name="team1",required=true,value="test id team 1")
     private int team1;
+    @ApiModelProperty(notes = "id of the team 2",name="team2",required=true,value="test id team 2")
     private int team2;
+    @ApiModelProperty(notes = "score of team 1",name="scoreTeam1",required=true,value="test scoreTeam1")
     private int scoreTeam1;
+    @ApiModelProperty(notes = "score of team 2",name="scoreTeam2",required=true,value="test scoreTeam2")
     private int scoreTeam2;
+    @ApiModelProperty(notes = "date du match",name="date",required=true,value="test date du match")
     private String date;
 
     // Constructeur, getters et setters
